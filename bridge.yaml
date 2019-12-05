@@ -1,0 +1,118 @@
+esphome:
+  name: multibridge
+  platform: ESP8266
+  board: d1_mini
+  platformio_options:
+    lib_deps: 
+      - "rc-switch@2.6.2"
+      - "IRremoteESP8266@2.7.1"
+      - "ESPAsyncTCP-esphome@1.2.2"
+      - "ESPAsyncWebServer-esphome@1.2.6"
+  includes:
+    - rc.h
+    - ir.h
+
+custom_component:
+- lambda: |-
+    auto irSendWrapper = new IRsendWrapper();
+    App.register_component(irSendWrapper);
+    return {irSendWrapper};
+
+wifi:
+  ssid: "XXXXXX"
+  password: "YYYYYYYYYYYY"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Multibridge Fallback Hotspot"
+    password: "ZZZZZZZZZZZZZZ"
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+## this is working on D2
+#remote_receiver:
+#  pin: 
+#    number: D2
+#  dump: all
+
+# Individual switches
+switch:
+  - platform: template
+    name: GT 9000 RF1 Power Button
+    assumed_state: true
+    optimistic: true
+    turn_on_action:
+      - lambda: |-
+          mySwitch.enableTransmit(D7);
+          mySwitch.setProtocol(5);
+          mySwitch.setPulseLength(488);
+          mySwitch.send("101100011000011101101100");
+          mySwitch.disableTransmit();
+    turn_off_action:
+      - lambda: |-
+          mySwitch.enableTransmit(D7);
+          mySwitch.setProtocol(5);
+          mySwitch.setPulseLength(488);
+          mySwitch.send("101110100000010001111100");
+          mySwitch.disableTransmit();
+  - platform: template
+    name: GT 9000 RF2 Power Button
+    assumed_state: true
+    optimistic: true
+    turn_on_action:
+      - lambda: |-
+          mySwitch.enableTransmit(D7);
+          mySwitch.setProtocol(5);
+          mySwitch.setPulseLength(488);
+          mySwitch.send("101100101110100011100101");
+          mySwitch.disableTransmit();
+    turn_off_action:
+      - lambda: |-
+          mySwitch.enableTransmit(D7);
+          mySwitch.setProtocol(5);
+          mySwitch.setPulseLength(488);
+          mySwitch.send("101110010011000011010101");
+          mySwitch.disableTransmit();
+  - platform: template
+    name: HDMI 1 Source Button
+    assumed_state: true
+    optimistic: true
+    turn_on_action:
+      - lambda: |-
+          irsend.sendNEC(0x40FFA05F, 32);
+  - platform: template
+    name: HDMI 2 Source Button
+    assumed_state: true
+    optimistic: true
+    turn_on_action:
+      - lambda: |-
+          irsend.sendNEC(0x40FF10EF, 32);
+  - platform: template
+    name: HDMI 3 Source Button
+    assumed_state: true
+    optimistic: true
+    turn_on_action:
+      - lambda: |-
+          irsend.sendNEC(0x40FF906F, 32);
+  - platform: template
+    name: HDMI 4 Source Button
+    assumed_state: true
+    optimistic: true
+    turn_on_action:
+      - lambda: |-
+          irsend.sendNEC(0x40FF50AF, 32);
+  - platform: template
+    name: HDMI 5 Source Button
+    assumed_state: true
+    optimistic: true
+    turn_on_action:
+      - lambda: |-
+          irsend.sendNEC(0x40FFB04F, 32);
