@@ -116,3 +116,18 @@ switch:
     turn_on_action:
       - lambda: |-
           irsend.sendNEC(0x40FFB04F, 32);
+  - platform: template
+    name: HDMI 5 Source Button
+    assumed_state: true
+    optimistic: true
+    turn_on_action:
+      - lambda: |-
+          irsend.sendNEC(0x40FFB04F, 32);
+  - platform: template
+    name: TV Samsung POWER
+    assumed_state: true
+    optimistic: true
+    turn_on_action:
+      - lambda: |-
+          irsend.sendSAMSUNG(0xE0E040BF, 32, 2);
+
