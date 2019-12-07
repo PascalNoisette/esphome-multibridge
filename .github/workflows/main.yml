@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@master
       - name: Build project # This would actually build your project, using zip for an example artifact
         run: |
-          docker run --rm -v "${PWD}":/config esphome/esphome bridge.yaml compile
+          docker run --rm -v "${PWD}":/config esphome/esphome multibridge.yaml compile
           mkdir artefacts
           tar -zcvf artefacts/build.tar.gz --exclude=./artefacts .
       - name: Upload frozen in time dependancies to release
