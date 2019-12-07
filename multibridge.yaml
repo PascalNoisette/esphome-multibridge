@@ -19,13 +19,13 @@ custom_component:
     return {irSendWrapper};
 
 wifi:
-  ssid: "XXXXXX"
-  password: "YYYYYYYYYYYY"
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: "Multibridge Fallback Hotspot"
-    password: "ZZZZZZZZZZZZZZ"
+    password: !secret ap_password
 
 captive_portal:
 
