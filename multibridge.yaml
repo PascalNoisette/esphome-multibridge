@@ -83,49 +83,48 @@ switch:
           mySwitch.disableTransmit();
   - platform: template
     name: HDMI 1 Source Button
-    assumed_state: true
+    icon: "mdi:format-header-1"
     optimistic: true
     turn_on_action:
       - lambda: |-
           irsend.sendNEC(0x40FFA05F, 32);
   - platform: template
     name: HDMI 2 Source Button
-    assumed_state: true
+    icon: "mdi:format-header-2"
     optimistic: true
     turn_on_action:
       - lambda: |-
           irsend.sendNEC(0x40FF10EF, 32);
   - platform: template
     name: HDMI 3 Source Button
-    assumed_state: true
+    icon: "mdi:format-header-3"
     optimistic: true
     turn_on_action:
       - lambda: |-
           irsend.sendNEC(0x40FF906F, 32);
   - platform: template
     name: HDMI 4 Source Button
-    assumed_state: true
+    icon: "mdi:format-header-4"
     optimistic: true
     turn_on_action:
       - lambda: |-
           irsend.sendNEC(0x40FF50AF, 32);
   - platform: template
     name: HDMI 5 Source Button
-    assumed_state: true
     optimistic: true
     turn_on_action:
       - lambda: |-
           irsend.sendNEC(0x40FFB04F, 32);
   - platform: template
     name: HDMI 5 Source Button
-    assumed_state: true
+    icon: "mdi:format-header-5"
     optimistic: true
     turn_on_action:
       - lambda: |-
           irsend.sendNEC(0x40FFB04F, 32);
   - platform: template
     name: TV Samsung POWER
-    assumed_state: true
+    icon: "mdi:power-standby"
     optimistic: true
     turn_on_action:
       - lambda: |-
