@@ -12,11 +12,15 @@ esphome:
     - rc.h
     - ir.h
 
-custom_component:
-- lambda: |-
+# Example configuration entry
+sensor:
+- platform: custom
+  lambda: |-
     auto irSendWrapper = new IRsendWrapper();
     App.register_component(irSendWrapper);
     return {irSendWrapper};
+  sensors:
+  - name: "domobox"
 
 wifi:
   ssid: !secret wifi_ssid
@@ -31,6 +35,7 @@ captive_portal:
 
 # Enable logging
 logger:
+  esp8266_store_log_strings_in_flash: false
 
 # Enable Home Assistant API
 api:
