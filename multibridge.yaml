@@ -9,7 +9,6 @@ esphome:
       - "ESPAsyncTCP-esphome@1.2.2"
       - "ESPAsyncWebServer-esphome@1.2.6"
   includes:
-    - rc.h
     - ir.h
 
 # Example configuration entry
