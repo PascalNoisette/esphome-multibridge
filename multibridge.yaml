@@ -55,36 +55,28 @@ switch:
     optimistic: true
     turn_on_action:
       - lambda: |-
-          mySwitch.enableTransmit(D7);
           mySwitch.setProtocol(5);
           mySwitch.setPulseLength(488);
           mySwitch.send("101100011000011101101100");
-          mySwitch.disableTransmit();
     turn_off_action:
       - lambda: |-
-          mySwitch.enableTransmit(D7);
           mySwitch.setProtocol(5);
           mySwitch.setPulseLength(488);
           mySwitch.send("101110100000010001111100");
-          mySwitch.disableTransmit();
   - platform: template
     name: GT 9000 RF2 Power Button
     assumed_state: true
     optimistic: true
     turn_on_action:
       - lambda: |-
-          mySwitch.enableTransmit(D7);
           mySwitch.setProtocol(5);
           mySwitch.setPulseLength(488);
           mySwitch.send("101100101110100011100101");
-          mySwitch.disableTransmit();
     turn_off_action:
       - lambda: |-
-          mySwitch.enableTransmit(D7);
           mySwitch.setProtocol(5);
           mySwitch.setPulseLength(488);
           mySwitch.send("101110010011000011010101");
-          mySwitch.disableTransmit();
   - platform: template
     name: HDMI 1 Source Button
     icon: "mdi:format-header-1"

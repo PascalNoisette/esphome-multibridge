@@ -14,6 +14,7 @@ class IRsendWrapper : public Component, public CustomAPIDevice, public Sensor {
   void setup() override {
         
         irsend.begin();
+        mySwitch.enableTransmit(D7);
 
 
         /* https://esphome.io/custom/custom_component.html?highlight=custom_component#native-api-custom-component */
@@ -47,10 +48,8 @@ class IRsendWrapper : public Component, public CustomAPIDevice, public Sensor {
 
   void rf_send(std::string data, int protocol, int pulse_length) {
     ESP_LOGD("custom", "Launch function rf_send(%s, %d, %d)", data.c_str(), protocol, pulse_length);
-    mySwitch.enableTransmit(D7);
     mySwitch.setProtocol(protocol);
     mySwitch.setPulseLength(pulse_length);
     mySwitch.send(data.c_str());
-    mySwitch.disableTransmit();
   }
 };
