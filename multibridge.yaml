@@ -1,7 +1,7 @@
 esphome:
-  name: multibridge
+  name: nmcu_multibridge
   platform: ESP8266
-  board: d1_mini
+  board: nodemcuv2
   platformio_options:
     lib_deps: 
       - "rc-switch@2.6.2"
@@ -19,7 +19,7 @@ sensor:
     App.register_component(irSendWrapper);
     return {irSendWrapper};
   sensors:
-  - name: "domobox"
+  - name: "nmcu_domobox"
 
 wifi:
   ssid: !secret wifi_ssid
@@ -42,10 +42,11 @@ api:
 ota:
 
 ## this is working on D2
-#remote_receiver:
-#  pin: 
-#    number: D2
-#  dump: all
+remote_receiver:
+  pin: 
+    number: D2
+    inverted: True
+  dump: all
 
 # Individual switches
 switch:
