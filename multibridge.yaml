@@ -1,7 +1,7 @@
 esphome:
-  name: nmcu_multibridge
+  name: multibridge
   platform: ESP8266
-  board: nodemcuv2
+  board: d1_mini
   platformio_options:
     lib_deps: 
       - "rc-switch@2.6.2"
@@ -10,7 +10,6 @@ esphome:
       - "ESPAsyncWebServer-esphome@1.2.6"
   includes:
     - ir.h
-
 # Example configuration entry
 sensor:
 - platform: custom
@@ -19,7 +18,8 @@ sensor:
     App.register_component(irSendWrapper);
     return {irSendWrapper};
   sensors:
-  - name: "nmcu_domobox"
+  - name: "tuya_multibridge"
+
 
 wifi:
   ssid: !secret wifi_ssid
@@ -40,87 +40,12 @@ logger:
 api:
 
 ota:
-
-## this is working on D2
-remote_receiver:
-  pin: 
-    number: D2
-    inverted: True
-  dump: all
+  password: !secret ota_password
 
 # Individual switches
 switch:
   - platform: template
-    name: GT 9000 RF1 Power Button
-    assumed_state: true
-    optimistic: true
-    turn_on_action:
-      - lambda: |-
-          mySwitch.setProtocol(5);
-          mySwitch.setPulseLength(488);
-          mySwitch.send("101100011000011101101100");
-    turn_off_action:
-      - lambda: |-
-          mySwitch.setProtocol(5);
-          mySwitch.setPulseLength(488);
-          mySwitch.send("101110100000010001111100");
-  - platform: template
-    name: GT 9000 RF2 Power Button
-    assumed_state: true
-    optimistic: true
-    turn_on_action:
-      - lambda: |-
-          mySwitch.setProtocol(5);
-          mySwitch.setPulseLength(488);
-          mySwitch.send("101100101110100011100101");
-    turn_off_action:
-      - lambda: |-
-          mySwitch.setProtocol(5);
-          mySwitch.setPulseLength(488);
-          mySwitch.send("101110010011000011010101");
-  - platform: template
-    name: HDMI 1 Source Button
-    icon: "mdi:format-header-1"
-    optimistic: true
-    turn_on_action:
-      - lambda: |-
-          irsend.sendNEC(0x40FFA05F, 32);
-  - platform: template
-    name: HDMI 2 Source Button
-    icon: "mdi:format-header-2"
-    optimistic: true
-    turn_on_action:
-      - lambda: |-
-          irsend.sendNEC(0x40FF10EF, 32);
-  - platform: template
-    name: HDMI 3 Source Button
-    icon: "mdi:format-header-3"
-    optimistic: true
-    turn_on_action:
-      - lambda: |-
-          irsend.sendNEC(0x40FF906F, 32);
-  - platform: template
-    name: HDMI 4 Source Button
-    icon: "mdi:format-header-4"
-    optimistic: true
-    turn_on_action:
-      - lambda: |-
-          irsend.sendNEC(0x40FF50AF, 32);
-  - platform: template
-    name: HDMI 5 Source Button
-    optimistic: true
-    turn_on_action:
-      - lambda: |-
-          irsend.sendNEC(0x40FFB04F, 32);
-  - platform: template
-    name: HDMI 5 Source Button
-    icon: "mdi:format-header-5"
-    optimistic: true
-    turn_on_action:
-      - lambda: |-
-          irsend.sendNEC(0x40FFB04F, 32);
-  - platform: template
-    name: TV Samsung POWER
+    name: tuya demo TV Samsung ON
     icon: "mdi:power-standby"
     optimistic: true
     turn_on_action:

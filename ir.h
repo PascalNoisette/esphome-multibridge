@@ -4,7 +4,7 @@
 #include "esphome.h"
 
 extern IRsend irsend;
-IRsend irsend = IRsend(D5);
+IRsend irsend = IRsend(D7);
 
 extern RCSwitch mySwitch;
 RCSwitch mySwitch = RCSwitch();
@@ -38,7 +38,7 @@ class IRsendWrapper : public Component, public CustomAPIDevice, public Sensor {
   void setup() override {
         
         irsend.begin();
-        mySwitch.enableTransmit(D7);
+        mySwitch.enableTransmit(D5);
 
 
         /* https://esphome.io/custom/custom_component.html?highlight=custom_component#native-api-custom-component */
