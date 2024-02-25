@@ -1,0 +1,72 @@
+esphome:
+  name: tinyremote
+  includes:
+  - service.h
+
+bk72xx:
+  board: cb3s
+
+# Enable logging
+logger:
+  level: DEBUG
+
+# Enable Home Assistant API
+api:
+  password: !secret api_password
+
+ota:
+  password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Tiny Iremote Fallback Hotspot"
+    password: !secret ap_password
+
+captive_portal:
+
+# CB3S 
+# https://developer.tuya.com/en/docs/iot/cb3s?id=Kai94mec0s076
+# 14 RECV -- 14	P7	 I/O	GPIOP_7,  which corresponds to P7  of the IC, PWM 1
+# 13 LED  -- 13	P8	 I/O	GPIOP_8,  which corresponds to P8  of the IC, PWM 2
+# 7  SW   -- 7	P6	 I/O	GPIOP_6,  which corresponds to P6  of the IC, PWM 0
+# 5  IR   -- 5	P26	 I/O	GPIOP_26, which corresponds to P26 of the IC, PWM 5
+
+remote_transmitter:
+  pin: P26
+  carrier_duty_percent: 50%
+
+status_led:
+  pin: P8
+
+# Flash
+
+# docker run -v /root/.platformio:/root/.platformio --device=/dev/ttyUSB0  --network=host --entrypoint=bash --rm -v "${PWD}":/config -it ghcr.io/esphome/esphome 
+
+sensor:
+- platform: custom
+  lambda: |-
+    auto irSendWrapper = new IRsendWrapper(remote_transmitter_remotetransmittercomponent);
+    App.register_component(irSendWrapper);
+    return {irSendWrapper};
+  sensors:
+  - name: "tinyremote"
+
+climate:
+  - platform: coolix
+    name: "Coolix AC"
+  - platform: midea_ir
+    name: "Midea Fan"
+
+
+#remote_receiver:
+#  pin: 
+#    number: P7
+#    inverted: True
+#    mode:
+#      input: true
+#      pullup: true
+#  dump: all
